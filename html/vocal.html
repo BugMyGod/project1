@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../utils/layui/css/layui.css" media="all">
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/vue-router/dist/vue-router.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+  <style>
+    .vocal-wrapper{
+      width: 100%;
+      height: 100%;
+    }
+    .search-box{
+      width: 100%;
+      padding: 15px 0 5px;
+      box-shadow: 0 0 4px #ccc;
+    }
+    .vocal-inner{
+      width: 100%;
+    }
+    .vocal-inner ul{
+      width: 100%;
+    }
+    .vocal-inner ul li{
+      list-style: none;
+      float: left;
+      width: 25%;
+      margin-bottom: 15px;
+    }
+    .vocal-inner ul li img{
+      width: 80%;
+      height: auto;
+    }
+    /* .vocal-inner ul li img:hover{
+      cursor: pointer;
+    } */
+    .vocal-inner ul li div{
+      width: 90%;
+      padding-top: 10px;
+      background: pink;
+    }
+    .img-text{
+      font-weight: 600;
+      font-size: 14px;
+    }
+  </style>
+  <title>演唱会</title>
+</head>
+<body>
+  <div class='vocal-wrapper' id="app">
+    <div class="search-box">
+      <form class="layui-form" action="">
+        <div class="layui-form-item">
+          <div class="layui-inline">
+            <label class="layui-form-label">演唱会类型</label>
+            <div class="layui-input-inline" style="width: 100px;">
+              <select name="value" lay-verify="">
+                <option value="010">北京</option>
+                <option value="021">上海</option>
+                <option value="0571">杭州</option>
+                <!-- <el-option
+                  v-for="item in list"
+                  :label="item.name"
+                  :value="item.value">
+                </el-option> -->
+              </select>
+            </div>  
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">歌手</label>
+            <div class="layui-input-inline" style="width: 100px;">
+              <select name="city" lay-verify="">
+                <option value="010">北京</option>
+                <option value="021">上海</option>
+                <option value="0571">杭州</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline">
+            <label class="layui-form-label">地点</label>
+            <div class="layui-input-inline" style="width: 100px;">
+              <select name="city" lay-verify="">
+                <option value="010">北京</option>
+                <option value="021">上海</option>
+                <option value="0571">杭州</option>
+              </select>
+            </div>
+          </div>
+          <div class="layui-inline" style="float: right;">
+            <div class="layui-input-inline">
+              <button class="layui-btn" lay-submit lay-filter="formDemo">查询</button>
+              <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class='vocal-inner'>
+      <ul>
+        <li v-for="(item,index) in imgList">
+          <a :href="'../index.html?imgId='+item.id" target="_blank">
+          <!-- <a :href="'../html/imgDetail.html?imgId='+item.id" target="_blank"> -->
+            <img :src="item.src" alt="img">
+          </a>
+          <div><span class='img-text'>介绍：</span>{{item.desc}}</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</body>
+<script src="../utils/layui/layui.js"></script>
+<script type="text/javascript">
+  new Vue({
+      el:'#app',
+      data: {
+        message:'hello vue.js.',
+        list:[
+          {key: '演唱会1 ', value:'1'},
+          {key: '演唱会2 ', value:'2'}
+        ],
+        value: '123',
+        imgList: [
+          {
+            src: '../img/1.jpeg',
+            desc: '11111111',
+            id: '1'
+          },{
+            src: '../img/2.jpeg',
+            desc: '22222',
+            id: '2'
+          },{
+            src: '../img/3.jpeg',
+            desc: '333333',
+            id: '3'
+          },{
+            src: '../img/4.jpeg',
+            desc: '444444',
+            id:'4'
+          },{
+            src: '../img/5.jpeg',
+            desc: '呜呜呜呜呜呜呜呜呜呜呜呜事实是生生世世生生世世生生世世生生世世事实是生生世世生生世世生生世世生生世世事实是生生世世生生世世生生世世生生世世111'
+          },{
+            src: '../img/6.jpeg',
+            desc: '啊啊啊啊啊啊啊是生生世世说'
+          },{
+            src: '../img/7.jpeg',
+            desc: '事实是生生世世生生世世生生世世生生世世'
+          },{
+            src: '../img/8.jpeg',
+            desc: '哈哈哈哈哈哈哈哈哈哈哈'
+          },
+        ]
+      },
+      methods: {
+        goImgDetail(item){
+          console.log('item--', item)
+          // let option = {
+          //   path: '../html/imgDetail.html',
+          //   query: { src: item.src }
+          // }
+          // this.$router.push(option)
+        }
+      }
+  });
+</script>
+<script>
+  layui.use('form', function(){
+    var form = layui.form;
+    //监听提交
+    form.on('submit(formDemo)', function(data){
+      layer.msg(JSON.stringify(data.field));
+      return false;
+    });
+  });
+  </script>  
+</html>

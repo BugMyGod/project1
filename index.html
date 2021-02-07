@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <link rel="stylesheet" href="./utils/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="./css/index.css">
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+  <title>系统</title>
+</head>
+<body>
+  <div class="index-wrapper" id="app">
+    <header>
+      <ul class="layui-nav" lay-filter="">
+        <li class="layui-nav-item layui-this"><a href="javascript:;" @click="changeClick('home')">首页</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" @click="changeClick('vocal')">演唱会</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" @click="changeClick('info')">周边信息</a></li>
+        <li class="layui-nav-item"><a href="javascript:;" @click="changeClick('news')">新闻公告</a></li>
+        <li class="layui-nav-item" style="float: right;">
+          <a href="javascript:;">username</a>
+          <dl class="layui-nav-child"> 
+            <dd><a href="./html/center.html" target="_blank">个人中心</a></dd>
+            <dd><a href="./html/order.html" target="_blank">个人订单</a></dd>
+          </dl>
+        </li>
+      </ul>
+    </header>
+    <section>
+      <iframe :src="myUrl"></iframe>
+    </section>
+    <!-- <footer>
+      footer
+    </footer> -->
+  </div>
+</body>
+<script src="utils/layui/layui.js"></script>
+<script type="text/javascript">
+  new Vue({
+      el:'#app',
+      data: {
+          myUrl: './html/vocal.html',
+          imgId: window.location.href.includes('?') ? window.location.href.split("?")[1].split("=")[1] : ''
+      },
+      watch: {
+        imgId: {
+          handler(n, o) {
+            console.log('n,o----', n)
+            if(n){
+              this.changeClick('imgId', n)
+            }
+          },
+          immediate: true
+        }
+      },
+      created() {
+        // console.log('this.$route.query----', this.$route.query)
+        console.log('window.location.href----', window.location.href.includes('?'))
+      },
+      methods: {
+        changeClick(id, n) {
+          console.log('id--', id)
+          if(id==='home'){
+            this.myUrl='./html/home.html'
+          }else if(id==='vocal'){
+            this.myUrl='./html/vocal.html'
+          }else if(id==='info'){
+            this.myUrl='./html/info.html'
+          }else if(id==='news'){
+            this.myUrl='./html/news.html'
+          }else if(id==='imgId'){
+            this.myUrl='./html/imgDetail.html?imgId='+n
+          }
+        }
+      }
+  });
+</script>
+<script>
+  //注意：导航 依赖 element 模块，否则无法进行功能性操作
+  layui.use(['element', 'layer', 'jquery'], function(){
+    var element = layui.element; //导航的hover效果、二级菜单等功能，需要依赖element模块
+    var layer = layui.layer;
+    var $ = layui.$;
+    console.log('element---', element)
+    //监听导航点击
+    element.on('nav(demo)', function(elem){
+      //console.log(elem)
+      layer.msg(elem.text());
+    });
+  });
+</script>
+</html>

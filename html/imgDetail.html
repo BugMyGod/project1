@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../utils/layui/css/layui.css" media="all">
+  <!-- <link rel="stylesheet" href="../css/index.css"> -->
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.20.0-0/axios.min.js"></script>
+  <style>
+    .img-detail-wrapper{
+      width: 100%;
+      margin-top: 10px;
+    }
+    .left-img,.right-info{
+      float: left;
+    }
+    .img-detail-wrapper .left-img{
+      width: 40%;
+    }
+    .left-img img{
+      width: 90%;
+      height: auto;
+    }
+    .img-detail-wrapper .right-info{
+      width: 60%;
+    }
+    .right-info-desc{
+      height: 60%;
+    }
+    .right-info-btn{
+      margin-top: 60%;
+      text-align: right;
+    }
+    .num-box{
+      margin-bottom: 10px;
+    }
+    .num{
+      padding: 0 20px;
+    }
+    .price{
+      padding: 0 20px;
+    }
+  </style>
+  <title>详情</title>
+</head>
+<body>
+  <div class="img-detail-wrapper" id="app">
+    <div class='left-img'>
+      <img :src="imgObj.src" alt="img">
+    </div>
+    <div class='right-info'>
+      <div class='right-info-desc'>{{imgObj.desc}}</div>
+      <div class='right-info-btn'>
+        <div class="num-box">
+          <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" @click='subNum'>
+            <i class="layui-icon">&#xe67e;</i>
+          </button>
+          <span class='num'>{{num}}</span>
+          <button type="button" class="layui-btn layui-btn-sm layui-btn-primary" @click='addNum'>
+            <i class="layui-icon">&#xe624;</i>
+          </button>
+          <span class='price'><span>¥</span>{{ totalPrice * num}}</span>
+        </div>
+        <button type="button" class="layui-btn">提交订单</button>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="../utils/layui/layui.js"></script>
+<script type="text/javascript">
+  new Vue({
+      el:'#app',
+      data: {
+          imgObj: {},
+          num: 0,
+          totalPrice: 200,
+          imgList: [
+          {
+            src: '../img/1.jpeg',
+            desc: '11111111',
+            id: '1'
+          },{
+            src: '../img/2.jpeg',
+            desc: '22222',
+            id: '2'
+          },{
+            src: '../img/3.jpeg',
+            desc: '333333',
+            id: '3'
+          },{
+            src: '../img/4.jpeg',
+            desc: '444444',
+            id:'4'
+          },{
+            src: '../img/5.jpeg',
+            id:'5',
+            desc: '呜呜呜呜呜呜呜呜呜呜呜呜事实是生生世世生生世世生生世世生生世世事实是生生世世生生世世生生世世生生世世事实是生生世世生生世世生生世世生生世世111'
+          },{
+            id:'6',
+            src: '../img/6.jpeg',
+            desc: '啊啊啊啊啊啊啊是生生世世说'
+          },{
+            id:'7',
+            src: '../img/7.jpeg',
+            desc: '事实是生生世世生生世世生生世世生生世世'
+          },{
+            id:'8',
+            src: '../img/8.jpeg',
+            desc: '哈哈哈哈哈哈哈哈哈哈哈'
+          },
+        ]
+      },
+      created() {
+        let paramId = window.location.href.split("?")[1].split("=")[1]
+        this.imgList.map(x => {
+          if(x.id === paramId){
+            this.$set(this.imgObj, 'src', x.src)
+            this.$set(this.imgObj, 'desc', x.desc)
+          }
+        })
+      },
+      mounted() {},
+      updated() {},
+      methods: {
+        subNum(){
+          if(this.num>0){
+            this.num--
+          }else{
+            alert('最小了')
+          }
+        },
+        addNum(){
+          this.num++
+        }
+      }
+  });
+</script>
+</html>
